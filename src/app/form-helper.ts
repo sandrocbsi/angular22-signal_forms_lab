@@ -24,8 +24,6 @@ export class AppFormHelper {
   form = form(
     this.model,
     (path) => {
-      //required(path.inputId, { message: 'Input is required' });
-      //required(path.data, { message: 'Data is required' });
       required(path.horario, { message: 'Horário is required' });
       min(path.quantidade, 0, { message: 'Quantidade must be greater than zero' });
       max(path.quantidade, 999, { message: 'Quantidade must be less than or equal to 999' });

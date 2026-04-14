@@ -8,15 +8,16 @@
       <!-- <input type="date" [formField]="form.data"> -->
       <!-- <input type="date" [formField]="$any(form.data)" appAsLocalDate> -->
 
-      <date-input [formField]="form.data" style="border-color: grey;" minDate="2026-04-11" maxDate="2026-04-15"></date-input>
+      <input-date [formField]="form.data" style="border-color: grey;" minDate="2026-04-11" maxDate="2026-04-15"></input-date>
       
       @for (err of form.mesAno().errors(); track $index) {
         <p>{{err.kind}}: {{err.message}} {{err}}</p>
       }
       <!-- <input type="text" inputmode="numeric" [formField]="$any(form.mesAno)" mask="0000-M0" [leadZeroDateTime]="true"> -->
-      <monthyear-input [formField]="form.mesAno"></monthyear-input>
+      <input-monthyear [formField]="form.mesAno"></input-monthyear>
 
-      <time-input [formField]="form.horario"></time-input>
+      <!-- <input type="time" [formField]="$any(form.horario)" appAsLocalTime> -->
+      <input-time [formField]="form.horario"></input-time>
 
       <input type="text" inputmode="numeric" [formField]="form.valor" currencyMask>
 

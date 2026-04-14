@@ -4,7 +4,7 @@ import { DateTimeFormatter, LocalDate, LocalTime, YearMonth } from "@js-joda/cor
 import { NgxMaskDirective } from "ngx-mask";
 
 @Component({
-  selector: 'date-input',
+  selector: 'input-date',
   template: `<input type="date" [value]="rawValue()" (input)="rawValue.set($event.target.value)" [style]="style()" [class]="class()" [min]="minDate()" [max]="maxDate()" />`,
   styles: `:host { display: contents; }`,
 })
@@ -27,7 +27,7 @@ export class DateInput implements FormValueControl<LocalDate | null> {
 }
 
 @Component({
-  selector: 'time-input',
+  selector: 'input-time',
   template: `<input type="time" [value]="rawValue()" (input)="rawValue.set($event.target.value)" [style]="style()" [class]="class()" />`,
   styles: `:host { display: contents; }`,
 })
@@ -47,7 +47,7 @@ export class TimeInput implements FormValueControl<LocalTime | null> {
 }
 
 @Component({
-  selector: 'monthyear-input',
+  selector: 'input-monthyear',
   imports: [NgxMaskDirective],
   template: `<input type="text" inputmode="numeric" [value]="rawValue()" (input)="rawValue.set($event.target.value)" mask="M0/0000" [leadZeroDateTime]="true" [clearIfNotMatch]="true" [style]="style()" [class]="class()" />`,
   styles: `:host { display: contents; }`,

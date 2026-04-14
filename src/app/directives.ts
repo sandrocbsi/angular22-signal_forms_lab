@@ -1,6 +1,6 @@
 import { Directive, effect, ElementRef, inject, input } from '@angular/core';
 import { FormField } from '@angular/forms/signals';
-import { LocalDate } from '@js-joda/core';
+import { LocalDate, LocalTime } from '@js-joda/core';
 
 @Directive({
   selector: '[appAsNumber]',
@@ -35,6 +35,31 @@ export class AsLocalDateDirective {
         if (typeof value === 'number') value = new Date(value);
         if (value instanceof Date) value = value.toISOString().split("T")[0];
         if (typeof value === 'string') return LocalDate.parse(value.length > 10 ? value.substring(value.length - 10) : value);
+        return value;
+      });
+      this.formField.state().value(); // Signal read required to track changes and trigger the effect when form field value changes.
+    });
+  }
+
+}
+
+@Directive({
+  selector: '[appAsLocalTime]',
+})
+export class AsLocalTimeDirective {
+
+  private readonly formField = inject(FormField<LocalTime | null>);
+
+  constructor() {
+    effect(() => {
+      this.formField.state().value.update((value: any) => {
+        try {
+          if (!value) return null;
+          if (typeof value === 'string') return LocalTime.parse(value);
+        } catch(err: unknown) {
+          console.error(err);
+          return null;
+        }
         return value;
       });
       this.formField.state().value(); // Signal read required to track changes and trigger the effect when form field value changes.
