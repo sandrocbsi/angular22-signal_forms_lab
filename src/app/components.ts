@@ -6,7 +6,7 @@ import { ConverterFn } from "./extras";
 
 @Component({
   selector: 'input-date',
-  template: `<input type="date" [value]="rawValue()" (input)="rawValue.set($event.target.value)" [style]="style()" [class]="class()" [min]="minDate()" [max]="maxDate()" />`,
+  template: `<input type="date" [value]="rawValue()" (input)="rawValue.set($event.target.value)" [style]="style()" [class]="class()" [min]="minDate()" [max]="maxDate()" [disabled]="disabled()" [readOnly]="readonly()" />`,
   styles: `:host { display: contents; }`,
 })
 export class DateInput implements FormValueControl<LocalDate | null> {
@@ -16,6 +16,8 @@ export class DateInput implements FormValueControl<LocalDate | null> {
 
   minDate = input<string | LocalDate>();
   maxDate = input<string | LocalDate>();
+  disabled = input(false);
+  readonly = input(false);
 
   readonly value = model.required<LocalDate | null>();
   protected readonly rawValue = transformedValue(this.value, {
@@ -29,13 +31,15 @@ export class DateInput implements FormValueControl<LocalDate | null> {
 
 @Component({
   selector: 'input-time',
-  template: `<input type="time" [value]="rawValue()" (input)="rawValue.set($event.target.value)" [style]="style()" [class]="class()" />`,
+  template: `<input type="time" [value]="rawValue()" (input)="rawValue.set($event.target.value)" [style]="style()" [class]="class()" [disabled]="disabled()" [readOnly]="readonly()" />`,
   styles: `:host { display: contents; }`,
 })
 export class TimeInput implements FormValueControl<LocalTime | null> {
 
   style = input<string>();
   class = input<string>();
+  disabled = input(false);
+  readonly = input(false);
 
   readonly value = model.required<LocalTime | null>();
   protected readonly rawValue = transformedValue(this.value, {
@@ -50,13 +54,15 @@ export class TimeInput implements FormValueControl<LocalTime | null> {
 @Component({
   selector: 'input-monthyear',
   imports: [NgxMaskDirective],
-  template: `<input type="text" inputmode="numeric" [value]="rawValue()" (input)="rawValue.set($event.target.value)" mask="M0/0000" [leadZeroDateTime]="true" [clearIfNotMatch]="true" [style]="style()" [class]="class()" />`,
+  template: `<input type="text" inputmode="numeric" [value]="rawValue()" (input)="rawValue.set($event.target.value)" mask="M0/0000" [leadZeroDateTime]="true" [clearIfNotMatch]="true" [style]="style()" [class]="class()" [disabled]="disabled()" [readOnly]="readonly()" />`,
   styles: `:host { display: contents; }`,
 })
 export class MonthYearInput implements FormValueControl<YearMonth | null> {
 
   style = input<string>();
   class = input<string>();
+  disabled = input(false);
+  readonly = input(false);
 
   readonly value = model.required<YearMonth | null>();
   protected readonly rawValue = transformedValue(this.value, {
@@ -79,7 +85,7 @@ export class MonthYearInput implements FormValueControl<YearMonth | null> {
 
 @Component({
   selector: 'select-object',
-  template: `<select [value]="rawValue()" (change)="rawValue.set($any($event.target).value)" [style]="style()" [class]="class()">
+  template: `<select [value]="rawValue()" (change)="rawValue.set($any($event.target).value)" [style]="style()" [class]="class()" [disabled]="disabled()">
     <ng-content></ng-content>
   </select>`,
   styles: `:host { display: contents; }`,
@@ -88,6 +94,7 @@ export class SelectObject<T> implements FormValueControl<T | null> {
 
   style = input<string>();
   class = input<string>();
+  disabled = input(false);
 
   converter = input.required<ConverterFn<T>>();
 

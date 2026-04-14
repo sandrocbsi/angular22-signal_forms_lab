@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from "@angular/core";
-import { form, max, min, required } from "@angular/forms/signals";
+import { disabled, form, max, min, readonly, required } from "@angular/forms/signals";
 import { LocalDate, LocalTime, YearMonth } from "@js-joda/core";
 import { Cidade, CidadeOptions, ConverterFn, CorrecaoMonetariaOptions, Objeto, OptionsEnum } from "./extras";
 
@@ -28,6 +28,8 @@ export class AppFormHelper {
       required(path.horario, { message: 'Horário is required' });
       min(path.quantidade, 0, { message: 'Quantidade must be greater than zero' });
       max(path.quantidade, 999, { message: 'Quantidade must be less than or equal to 999' });
+      disabled(path.cidadeSelecionada)
+      readonly(path.horario) // Example of dynamic read-only state based on another form field value.
     },
     /*{
       submission: {
