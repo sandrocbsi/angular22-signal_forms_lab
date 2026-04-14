@@ -2,14 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormField, FormRoot, submit } from '@angular/forms/signals';
 import { LocalDate, LocalTime, YearMonth } from '@js-joda/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { DateInput, MonthYearInput, TimeInput } from "./components";
+import { DateInput, MonthYearInput, SelectObject, TimeInput } from "./components";
 import { AsNumberDirective, DigitsOnlyDirective, NumberMaxLengthDirective } from './directives';
 import { Cidade, CorrecaoMonetaria, Objeto, OptionsEnum } from './extras';
 import { AppFormHelper } from './form-helper';
 
 @Component({
   selector: 'app-root',
-  imports: [FormField, FormRoot, AsNumberDirective, NgxCurrencyDirective, NumberMaxLengthDirective, DigitsOnlyDirective, DateInput, MonthYearInput, TimeInput],
+  imports: [FormField, FormRoot, AsNumberDirective, NgxCurrencyDirective, NumberMaxLengthDirective, DigitsOnlyDirective, DateInput, MonthYearInput, TimeInput, SelectObject],
   providers: [AppFormHelper],
   templateUrl: './app.html',
   styleUrl: './app.css'
@@ -37,9 +37,14 @@ export class App implements OnInit {
       correcaoMonetaria: { id: 1, nome: 'IPCA' } as CorrecaoMonetaria,
       cidade: { id: 3, nome: 'Santarém' } as Cidade,
       radionOption: OptionsEnum.Option2,
+      cidadeSelecionada: { id: 1, nome: 'Belém' } as Cidade,
       valor: 123.45,
       quantidade: 10
     };
+  }
+
+  aoSelecionarCidade() {
+    console.log('teste', this.appFormHelper.form.cidadeSelecionada().value())
   }
 
   async confirmar() {

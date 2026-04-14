@@ -2,6 +2,7 @@ import { Component, input, model } from "@angular/core";
 import { FormValueControl, transformedValue, ValidationError } from "@angular/forms/signals";
 import { DateTimeFormatter, LocalDate, LocalTime, YearMonth } from "@js-joda/core";
 import { NgxMaskDirective } from "ngx-mask";
+import { ConverterFn } from "./extras";
 
 @Component({
   selector: 'input-date',
@@ -73,5 +74,30 @@ export class MonthYearInput implements FormValueControl<YearMonth | null> {
       if (!val) return '';
       return `${DateTimeFormatter.ofPattern('MM/yyyy').format(val)}`;
     }
+  });
+}
+
+@Component({
+  selector: 'select-object',
+  template: `<select [value]="rawValue()" (change)="rawValue.set($any($event.target).value)" [style]="style()" [class]="class()">
+    <ng-content></ng-content>
+  </select>`,
+  styles: `:host { display: contents; }`,
+})
+export class SelectObject<T> implements FormValueControl<T | null> {
+
+  style = input<string>();
+  class = input<string>();
+
+  converter = input.required<ConverterFn<T>>();
+
+  readonly value = model.required<T | null>();
+  protected readonly rawValue = transformedValue(this.value, {
+    parse: (val: string) => {
+      return { value: val ? this.converter().fromRaw(val) : null };
+    },
+    format: (val: T | null) => {
+      return (val ? this.converter().fromObj(val) : null) as string;
+    },
   });
 }

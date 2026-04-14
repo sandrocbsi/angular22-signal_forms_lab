@@ -1,7 +1,7 @@
 import { computed, Injectable, signal } from "@angular/core";
 import { form, max, min, required } from "@angular/forms/signals";
 import { LocalDate, LocalTime, YearMonth } from "@js-joda/core";
-import { CidadeOptions, CorrecaoMonetariaOptions, Objeto, OptionsEnum } from "./extras";
+import { Cidade, CidadeOptions, ConverterFn, CorrecaoMonetariaOptions, Objeto, OptionsEnum } from "./extras";
 
 @Injectable()
 export class AppFormHelper {
@@ -15,6 +15,7 @@ export class AppFormHelper {
     correcaoMonetariaId: '',
     cidadeId: null,
     radionOption: OptionsEnum.Option1,
+    cidadeSelecionada: null,
     valor: null,
     quantidade: 0
   };
@@ -47,6 +48,11 @@ export class AppFormHelper {
     return CidadeOptions.find(c => c.id === this.form.cidadeId().value()) ?? null;
   });
 
+  cidadeConverter: ConverterFn<Cidade> = {
+    fromObj: (obj) => String(obj.id),
+    fromRaw: (raw) => CidadeOptions.find(c => c.id === Number(raw)) ?? null
+  };
+
   toForm(objeto: Objeto) {
     this.model.set({
       text: objeto.text,
@@ -57,6 +63,7 @@ export class AppFormHelper {
       correcaoMonetariaId: objeto.correcaoMonetaria?.id ? String(objeto.correcaoMonetaria.id) : '',
       cidadeId: objeto.cidade?.id ?? null,
       radionOption: objeto.radionOption,
+      cidadeSelecionada: objeto.cidadeSelecionada,
       valor: objeto.valor,
       quantidade: objeto.quantidade
     });
@@ -72,6 +79,7 @@ export class AppFormHelper {
       inputId: formValue.inputId,
       correcaoMonetaria: this.correcaoMonetaria(),
       cidade: this.cidade(),
+      cidadeSelecionada: formValue.cidadeSelecionada,
       radionOption: formValue.radionOption,
       valor: formValue.valor,
       quantidade: formValue.quantidade
@@ -93,6 +101,7 @@ interface AppForm {
   correcaoMonetariaId: string;
   cidadeId: number | null;
   radionOption: OptionsEnum;
+  cidadeSelecionada: Cidade | null;
   valor: number | null;
   quantidade: number;
 }

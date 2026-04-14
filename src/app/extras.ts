@@ -37,6 +37,12 @@ export interface Objeto {
   correcaoMonetaria: CorrecaoMonetaria | null;
   cidade: Cidade | null;
   radionOption: OptionsEnum;
+  cidadeSelecionada: Cidade | null;
   valor: number | null;
   quantidade: number;
+}
+
+export interface ConverterFn<T> {
+  fromRaw: (raw: string) => T | null;
+  fromObj: (obj: T) => string;
 }

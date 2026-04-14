@@ -49,6 +49,13 @@
         <option [value]="cidade.id">{{cidade.nome}}</option>
         }
       </select>
+
+      <select-object [formField]="form.cidadeSelecionada" [converter]="appFormHelper.cidadeConverter" (change)="aoSelecionarCidade()">
+        <option [value]="null">Selecione</option>
+        @for (cidade of appFormHelper.listaCidade; track $index) {
+          <option [value]="cidade.id">{{cidade.nome}}</option>
+        }
+      </select-object>
     </div>
   </fieldset>
 
