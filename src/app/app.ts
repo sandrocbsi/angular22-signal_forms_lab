@@ -2,14 +2,14 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormField, FormRoot, submit } from '@angular/forms/signals';
 import { LocalDate, LocalTime, YearMonth } from '@js-joda/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { DateInput, MonthYearInput, SelectObject, TimeInput } from "./components";
+import { DateInputComponent, MonthYearInputComponent, ObjectSelectComponent, TimeInputComponent } from "./components";
 import { AsNumberDirective, DigitsOnlyDirective, NumberMaxLengthDirective } from './directives';
 import { Cidade, CorrecaoMonetaria, Objeto, OptionsEnum } from './extras';
 import { AppFormHelper } from './form-helper';
 
 @Component({
   selector: 'app-root',
-  imports: [FormField, FormRoot, AsNumberDirective, NgxCurrencyDirective, NumberMaxLengthDirective, DigitsOnlyDirective, DateInput, MonthYearInput, TimeInput, SelectObject],
+  imports: [FormField, FormRoot, AsNumberDirective, NgxCurrencyDirective, NumberMaxLengthDirective, DigitsOnlyDirective, DateInputComponent, MonthYearInputComponent, TimeInputComponent, ObjectSelectComponent],
   providers: [AppFormHelper],
   templateUrl: './app.html',
   styleUrl: './app.css'

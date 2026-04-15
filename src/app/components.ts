@@ -9,7 +9,7 @@ import { ConverterFn } from "./extras";
   template: `<input type="date" [value]="rawValue()" (input)="rawValue.set($event.target.value)" [style]="style()" [class]="class()" [min]="minDate()" [max]="maxDate()" [disabled]="disabled()" [readOnly]="readonly()" />`,
   styles: `:host { display: contents; }`,
 })
-export class DateInput implements FormValueControl<LocalDate | null> {
+export class DateInputComponent implements FormValueControl<LocalDate | null> {
 
   style = input<string>();
   class = input<string>();
@@ -34,7 +34,7 @@ export class DateInput implements FormValueControl<LocalDate | null> {
   template: `<input type="time" [value]="rawValue()" (input)="rawValue.set($event.target.value)" [style]="style()" [class]="class()" [disabled]="disabled()" [readOnly]="readonly()" />`,
   styles: `:host { display: contents; }`,
 })
-export class TimeInput implements FormValueControl<LocalTime | null> {
+export class TimeInputComponent implements FormValueControl<LocalTime | null> {
 
   style = input<string>();
   class = input<string>();
@@ -57,7 +57,7 @@ export class TimeInput implements FormValueControl<LocalTime | null> {
   template: `<input type="text" inputmode="numeric" [value]="rawValue()" (input)="rawValue.set($event.target.value)" mask="M0/0000" [leadZeroDateTime]="true" [clearIfNotMatch]="true" [style]="style()" [class]="class()" [disabled]="disabled()" [readOnly]="readonly()" />`,
   styles: `:host { display: contents; }`,
 })
-export class MonthYearInput implements FormValueControl<YearMonth | null> {
+export class MonthYearInputComponent implements FormValueControl<YearMonth | null> {
 
   style = input<string>();
   class = input<string>();
@@ -90,7 +90,7 @@ export class MonthYearInput implements FormValueControl<YearMonth | null> {
   </select>`,
   styles: `:host { display: contents; }`,
 })
-export class SelectObject<T> implements FormValueControl<T | null> {
+export class ObjectSelectComponent<T> implements FormValueControl<T | null> {
 
   style = input<string>();
   class = input<string>();
